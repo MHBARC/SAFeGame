@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFe Showdown</title>
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with scores -->
+        <header class="header">
+            <div class="logo">
+                <img src="logo.png" alt="IT PMO American Red Cross Logo">
+            </div>
+            <div class="header-with-scores">
+                <div class="title-area">
+                    <h1>SAFe Showdown</h1>
+                    <p>Test your SAFe knowledge in this team competition</p>
+                </div>
+                <div class="scores-area" id="scores-section">
+                    <div class="team-score-header">
+                        <div class="team-name-small" id="team1-display">Agile Avengers</div>
+                        <div class="score-value-header" id="team1-score">0</div>
+                    </div>
+                    <div class="team-score-header">
+                        <div class="team-name-small" id="team2-display">SAFe Superheroes</div>
+                        <div class="score-value-header" id="team2-score">0</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Introduction Screen -->
+        <div id="intro-screen" class="intro-screen">
+            <div class="intro-title">Welcome to SAFe Showdown!</div>
+            <div class="intro-description">
+                <p>This interactive game will test your knowledge of the Scaled Agile Framework (SAFe) in a fun, competitive format. Two teams will go head-to-head answering questions about SAFe concepts, roles, events, and practices.</p>
+                <p>Each team will take turns answering questions. You'll have 30 seconds to discuss with your team before giving your answer. 10 points are awarded for each correct answer!</p>
+            </div>
+            
+            <div class="team-setup">
+                <h2 class="setup-title">Team Setup</h2>
+                <div class="form-group">
+                    <label for="team1-name">Team 1 Name:</label>
+                    <input type="text" id="team1-name" placeholder="Enter team name..." value="Agile Avengers">
+                </div>
+                <div class="form-group">
+                    <label for="team2-name">Team 2 Name:</label>
+                    <input type="text" id="team2-name" placeholder="Enter team name..." value="SAFe Superheroes">
+                </div>
+                <button class="btn btn-primary btn-block" id="start-game-btn">
+                    <i class="fas fa-play btn-icon"></i> Start Game
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Screen (initially hidden) -->
+        <div id="game-screen" style="display: none;">
+            <!-- Game Area -->
+            <div class="game-area">
+                <div class="game-header">
+                    <div class="info-section">
+                        <div class="question-number">Question <span id="current-question">1</span> of <span id="total-questions">12</span></div>
+                        <div class="timer-container">
+                            <div class="timer" id="timer">30s</div>
+                            <div class="timer-controls">
+                                <button class="btn btn-timer" id="start-timer-btn">
+                                    <i class="fas fa-play btn-icon"></i> Start
+                                </button>
+                                <button class="btn btn-timer" id="stop-timer-btn">
+                                    <i class="fas fa-pause btn-icon"></i> Stop
+                                </button>
+                            </div>
+                            <div class="timer-progress">
+                                <div class="timer-bar" id="timer-progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 class="question-title" id="question-text">What are the four Core Values of SAFe?</h2>
+                
+                <div class="content-area">
+                    <div class="visual-area" id="question-visual">
+                        <!-- Visual content will be inserted here -->
+                        <div class="difficulty-tag" id="difficulty-badge">Easy</div>
+                    </div>
+                                       
+                    <div class="controls-area">
+                        <button class="btn btn-success" id="team1-btn">
+                            <i class="fas fa-check-circle btn-icon"></i>
+                            <span id="team1-btn-text">Agile Avengers Correct (+10)</span>
+                        </button>
+                        <button class="btn btn-success" id="team2-btn">
+                            <i class="fas fa-check-circle btn-icon"></i>
+                            <span id="team2-btn-text">SAFe Superheroes Correct (+10)</span>
+                        </button>
+                        <button class="btn btn-primary" id="show-answer-btn">
+                            <i class="fas fa-lightbulb btn-icon"></i> Show Answer
+                        </button>
+                        
+                        <div class="answer-box" id="answer-container">
+                            <div class="answer-title">Answer:</div>
+                            <div id="answer-text">
+                                <div class="value-box">Alignment</div>
+                                <div class="value-box">Built-in Quality</div>
+                                <div class="value-box">Transparency</div>
+                                <div class="value-box">Program Execution</div>
+                                <p>Learn more: <a href="https://www.scaledagile.com/resources/safe-core-values/">SAFe Core Values</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Updated navigation section with all buttons on the right and icons -->
+                <div class="navigation">
+                    <div class="navigation-right">
+                        <button class="btn btn-secondary" id="prev-btn">
+                            <i class="fas fa-arrow-left btn-icon"></i> Previous
+                        </button>
+                        <button class="btn btn-primary" id="next-btn">
+                            <span>Next Question</span> <i class="fas fa-arrow-right btn-icon"></i>
+                        </button>
+                        <button class="btn btn-secondary" id="finish-early-btn">
+                            <i class="fas fa-flag-checkered btn-icon"></i> Finish Game Early
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen (initially hidden) -->
+        <div class="game-over" id="game-over">
+            <h2>Game Over!</h2>
+            
+            <div id="trophy-container" class="trophy">
+                <!-- Trophy SVG will be inserted here -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                    <path d="M50 10 L70 10 L70 20 L80 20 L80 40 C80 50 70 55 65 57 L65 75 L75 85 L55 85 L50 90 L45 85 L25 85 L35 75 L35 57 C30 55 20 50 20 40 L20 20 L30 20 L30 10 Z" fill="gold" stroke="#e21836" stroke-width="2" />
+                    <circle cx="50" cy="35" r="15" fill="#e21836" />
+                    <text x="50" y="40" text-anchor="middle" fill="white" font-size="12" font-weight="bold">1st</text>
+                </svg>
+            </div>
+            
+            <div class="winner-text" id="winner-text">Team 1 Wins!</div>
+            
+            <div class="results">
+                <div class="result-item">
+                    <span class="result-label">Total Questions:</span>
+                    <span id="total-questions-result">12</span>
+                </div>
+                <div class="result-item" id="team1-stats">
+                    <span class="result-label">Agile Avengers Score:</span>
+                    <span>30</span>
+                </div>
+                <div class="result-item" id="team2-stats">
+                    <span class="result-label">SAFe Superheroes Score:</span>
+                    <span>20</span>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" id="restart-btn">
+                <i class="fas fa-redo-alt btn-icon"></i> Play Again
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript files - questions.js must be loaded first -->
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
